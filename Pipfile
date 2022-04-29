@@ -5,9 +5,9 @@ name = "pypi"
 
 [packages]
 bs4 = "*"
+chromedriver-autoinstaller = "*"
 openpyxl = "*"
 selenium = "*"
-chromedriver-autoinstaller = "*"
 webdriver-manager = "*"
 urllib3 = "*"
 

@@ -1,13 +1,16 @@
 from bs4 import BeautifulSoup
-from openpyxl import Workbook
+
 from selenium import webdriver
 from selenium.common.exceptions import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+
 import time
+
 from webdriver_manager.chrome import ChromeDriverManager
+
 from urllib import parse
 import urllib.request as req
 import urllib3.exceptions
@@ -55,7 +58,7 @@ class Crawler:
         return html
 
     @classmethod
-    def __get_mulung(cls, name):
+    def get_mulung(cls, name):
         res = req.urlopen("https://" + parse.quote("maple.gg/u/%s" % name)).read()
         data = BeautifulSoup(res, "html.parser")
 
@@ -82,18 +85,8 @@ class Crawler:
                     x[0],
                     x[1].split("/")[0],
                     x[1].split("/")[1],
-                    cls.__get_mulung(x[0]) + "층",
                     x[2].split(": ")[1],
                 ],
                 result[3:],
             )
         )
-
-
-if __name__ == "__main__":
-    members = Crawler.get_members("scania", "아이엠캔들")
-    write_wb = Workbook()
-    write_ws = write_wb.active
-    for member in members:
-        write_ws.append(member)
-    write_wb.save("D:/Downloads/아이엠캔들/2022/아이엠캔들길드원0428list.xlsx")
