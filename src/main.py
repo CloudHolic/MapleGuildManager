@@ -1,4 +1,4 @@
-import os
+import os, sys
 from datetime import date
 from openpyxl import Workbook
 from Crawler import Crawler
@@ -27,6 +27,14 @@ def printProgressBar (iteration, total, prefix='', suffix='',
 
 
 if __name__ == "__main__":
+    if getattr(sys, 'frozen', False):
+        # If the application is run as a bundle, the PyInstaller bootloader
+        # extends the sys module by a flag frozen=True and sets the app
+        # path into variable _MEIPASS'.
+        application_path = sys._MEIPASS
+    else:
+        application_path = os.path.dirname(os.path.abspath(__file__))
+
     server_name = "scania"
     guild_name = "아이엠캔들"
     today = date.today().strftime('%m%d')
@@ -38,7 +46,7 @@ if __name__ == "__main__":
     idx = 0
     printProgressBar(idx, len(members), prefix='Progress:', suffix='Complete', length=50)
     for member in members:
-        write_ws.append([member[0], member[1], member[2], Crawler.get_mulung(member[0]), member[3]])
+        write_ws.append([member[0], member[1], member[2], Crawler.get_mulung(member[0]) + "층", member[3]])
         idx += 1
         printProgressBar(idx, len(members), prefix='Progress:', suffix='Complete', length=50)
     write_wb.save(os.getcwd() + "/" + guild_name + "길드원" + today + "list.xlsx")
