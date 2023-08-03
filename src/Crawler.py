@@ -27,7 +27,7 @@ class Crawler:
     @classmethod
     def __get_raw_members(cls, server, guild):
         try:
-            driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+            driver = webdriver.Chrome(service=Service(ChromeDriverManager(version='114.0.5735.90').install()))
             driver.get(
                 "https://" + parse.quote("maple.gg/guild/%s/%s" % (server, guild))
             )
